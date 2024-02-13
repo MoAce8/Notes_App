@@ -6,25 +6,54 @@ class NotesItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.cyan,
-        borderRadius: BorderRadius.circular(16)
+      padding: EdgeInsets.only(
+        top: 16,
+        bottom: 24,
+        left: 12
       ),
-      child: ListTile(
-        title: const Text(
-          'Title',
-          style: TextStyle(
-            fontSize: 20,
+      decoration: BoxDecoration(
+          color: Colors.cyan, borderRadius: BorderRadius.circular(16)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          ListTile(
+            title: const Text(
+              'Title',
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.black,
+              ),
+            ),
+            subtitle: Padding(
+              padding: const EdgeInsets.only(top: 16,bottom: 16),
+              child:  Text(
+                'Note content should be hereeeeeeeeeeeeee',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black.withOpacity(.6),
+                ),
+              ),
+            ),
+            trailing: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.black,
+                size: 30,
+              ),
+            ),
           ),
-        ),
-        subtitle: const Text(
-          'Note content should be here',
-          style: TextStyle(fontSize: 16),
-        ),
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.delete),
-        ),
+          Padding(
+            padding: const EdgeInsets.only(right: 24),
+            child: Text(
+              'Feb12,2024',
+              style: TextStyle(
+                color: Colors.black.withOpacity(.6)
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
