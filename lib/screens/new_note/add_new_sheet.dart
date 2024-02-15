@@ -15,14 +15,17 @@ class NewNoteSheet extends StatelessWidget {
         if(state is AddNoteFailure){
           print('Failed ${state.errMessage}');
         }
+        if(state is AddNoteSuccess){
+          Navigator.pop(context);
+        }
       },
       builder: (context, state) {
         return ModalProgressHUD(
           inAsyncCall: state is AddNoteLoading,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             width: screenWidth(context),
-            child: AddNewForm(),
+            child: const AddNewForm(),
           ),
         );
       },

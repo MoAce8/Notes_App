@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/shared/constants.dart';
 import 'package:notes_app/shared/widgets/app_button.dart';
 import 'package:notes_app/shared/widgets/custom_text_field.dart';
@@ -13,7 +15,6 @@ class AddNewForm extends StatefulWidget {
 }
 
 class _AddNewFormState extends State<AddNewForm> {
-
   TextEditingController titleController = TextEditingController();
   TextEditingController noteController = TextEditingController();
   var formKey = GlobalKey<FormState>();
@@ -42,11 +43,19 @@ class _AddNewFormState extends State<AddNewForm> {
               text: 'Add',
               function: () {
                 if (formKey.currentState!.validate()) {
-                  Navigator.pop(context);
-                  print(titleController.text);
-                  print(noteController.text);
-                }else{
-                  autoValidateMode = AutovalidateMode.always;
+                  formKey.currentState!.save();
+
+                  NoteModel note = NoteModel(
+                    title: titleController.text,
+                    subTitle: noteController.text,
+                    date: DateTime.now().toString(),
+                    color: Colors.cyan.value,
+                  );
+                  AddNoteCubit.get(context).addNote(note);
+                } else {
+                  setState(() {
+                    autoValidateMode = AutovalidateMode.always;
+                  });
                 }
               }),
         ],
