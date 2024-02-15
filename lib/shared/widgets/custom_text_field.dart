@@ -40,8 +40,8 @@ class AppTextFormField extends StatelessWidget {
       style: TextStyle(fontSize: screenWidth(context) * 0.05),
       decoration: InputDecoration(
           isDense: true,
-          label: Text(label),
-          labelStyle: const TextStyle(color: Colors.white),
+          hintText: label,
+          hintStyle: const TextStyle(color: Colors.grey),
           focusedErrorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white)),
           contentPadding: const EdgeInsets.all(10),

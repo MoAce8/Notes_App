@@ -58,6 +58,7 @@ class _AddNewFormState extends State<AddNewForm> {
                   });
                 }
               }),
+          SizedBox(height: screenHeight(context) * .08),
         ],
       ),
     );
