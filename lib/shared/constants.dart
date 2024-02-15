@@ -9,3 +9,5 @@ double screenWidth(context) {
 double screenHeight(context) {
   return MediaQuery.of(context).size.height;
 }
+
+const kNotesBox = 'notes_box';
