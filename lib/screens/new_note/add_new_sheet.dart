@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app/screens/new_note/widgets/add_new_form.dart';
 import 'package:notes_app/shared/constants.dart';
-import 'package:notes_app/shared/widgets/app_button.dart';
-import 'package:notes_app/shared/widgets/custom_text_field.dart';
 
 class NewNoteSheet extends StatelessWidget {
-   NewNoteSheet({Key? key}) : super(key: key);
+  NewNoteSheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      width: screenWidth(context),
-      child: AddNewForm(),
+    return BlocConsumer<AddNoteCubit, AddNoteState>(
+      listener: (context, state) {
+        if(state is AddNoteFailure){
+          print('Failed ${state.errMessage}');
+        }
+      },
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: state is AddNoteLoading,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            width: screenWidth(context),
+            child: AddNewForm(),
+          ),
+        );
+      },
     );
   }
 }
@@ -19,54 +33,4 @@ class NewNoteSheet extends StatelessWidget {
 
 
 
-class AddNewForm extends StatefulWidget {
-  const AddNewForm({
-    super.key,
-  });
 
-  @override
-  State<AddNewForm> createState() => _AddNewFormState();
-}
-
-class _AddNewFormState extends State<AddNewForm> {
-
-  TextEditingController titleController = TextEditingController();
-  TextEditingController noteController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
-  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      autovalidateMode: autoValidateMode,
-      child: Column(
-        children: [
-          SizedBox(height: screenHeight(context) * .05),
-          AppTextFormField(
-            label: 'Title',
-            controller: titleController,
-          ),
-          SizedBox(height: screenHeight(context) * .025),
-          AppTextFormField(
-            label: 'Enter Note',
-            controller: noteController,
-            maxLines: 5,
-          ),
-          SizedBox(height: screenHeight(context) * .08),
-          AppButton(
-              text: 'Add',
-              function: () {
-                if (formKey.currentState!.validate()) {
-                  Navigator.pop(context);
-                  print(titleController.text);
-                  print(noteController.text);
-                }else{
-                  autoValidateMode = AutovalidateMode.always;
-                }
-              }),
-        ],
-      ),
-    );
-  }
-}
