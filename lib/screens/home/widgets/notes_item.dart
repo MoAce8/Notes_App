@@ -8,14 +8,14 @@ class NotesItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => EditNoteScreen(),));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EditNoteScreen(),
+            ));
       },
       child: Container(
-        padding: EdgeInsets.only(
-          top: 16,
-          bottom: 24,
-          left: 12
-        ),
+        padding: const EdgeInsets.only(top: 16, bottom: 24, left: 12),
         decoration: BoxDecoration(
             color: Colors.cyan, borderRadius: BorderRadius.circular(16)),
         child: Column(
@@ -31,8 +31,8 @@ class NotesItem extends StatelessWidget {
                 ),
               ),
               subtitle: Padding(
-                padding: const EdgeInsets.only(top: 16,bottom: 16),
-                child:  Text(
+                padding: const EdgeInsets.only(top: 16, bottom: 16),
+                child: Text(
                   'Note content should be hereeeeeeeeeeeeee',
                   style: TextStyle(
                     fontSize: 16,
@@ -53,9 +53,7 @@ class NotesItem extends StatelessWidget {
               padding: const EdgeInsets.only(right: 24),
               child: Text(
                 'Feb12,2024',
-                style: TextStyle(
-                  color: Colors.black.withOpacity(.6)
-                ),
+                style: TextStyle(color: Colors.black.withOpacity(.6)),
               ),
             )
           ],

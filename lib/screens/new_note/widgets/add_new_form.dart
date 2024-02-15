@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/shared/constants.dart';
@@ -39,26 +40,31 @@ class _AddNewFormState extends State<AddNewForm> {
             maxLines: 5,
           ),
           SizedBox(height: screenHeight(context) * .08),
-          AppButton(
-              text: 'Add',
-              function: () {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
+          BlocBuilder<AddNoteCubit, AddNoteState>(
+            builder: (context, state) {
+              return AppButton(
+                  isLoading: state is AddNoteLoading,
+                  text: 'Add',
+                  function: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
 
-                  NoteModel note = NoteModel(
-                    title: titleController.text,
-                    subTitle: noteController.text,
-                    date: DateTime.now().toString(),
-                    color: Colors.cyan.value,
-                  );
-                  AddNoteCubit.get(context).addNote(note);
-                } else {
-                  setState(() {
-                    autoValidateMode = AutovalidateMode.always;
+                      NoteModel note = NoteModel(
+                        title: titleController.text,
+                        subTitle: noteController.text,
+                        date: DateTime.now().toString(),
+                        color: Colors.cyan.value,
+                      );
+                      AddNoteCubit.get(context).addNote(note);
+                    } else {
+                      setState(() {
+                        autoValidateMode = AutovalidateMode.always;
+                      });
+                    }
                   });
-                }
-              }),
-          SizedBox(height: screenHeight(context) * .08),
+            },
+          ),
+          SizedBox(height: screenHeight(context) * .04),
         ],
       ),
     );

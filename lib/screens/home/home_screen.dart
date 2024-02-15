@@ -27,12 +27,12 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: ListView.separated(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           top: 6,
           left: 16,
           right: 16,
         ),
-        itemBuilder: (context, index) => NotesItem(),
+        itemBuilder: (context, index) => const NotesItem(),
         separatorBuilder: (context, index) =>
             SizedBox(
               height: screenHeight(context) * .01,
@@ -42,16 +42,17 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-            shape: RoundedRectangleBorder(
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
               )
             ),
-            context: context, builder: (context) => NewNoteSheet(),);
+            context: context, builder: (context) => const NewNoteSheet(),);
         },
-        child: Icon(Icons.add),
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
+        child: const Icon(Icons.add),
       ),
     );
   }
