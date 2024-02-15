@@ -35,12 +35,12 @@ class EditNoteScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: screenHeight(context) * .05),
-            AppTextField(
+            AppTextFormField(
               label: 'Title',
               controller: titleController,
             ),
             SizedBox(height: screenHeight(context) * .025),
-            AppTextField(
+            AppTextFormField(
               label: 'Enter Note',
               controller: noteController,
               maxLines: 5,

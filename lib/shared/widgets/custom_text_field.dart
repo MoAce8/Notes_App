@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:notes_app/shared/constants.dart';
 
-class AppTextField extends StatelessWidget {
-  const AppTextField({
+class AppTextFormField extends StatelessWidget {
+  const AppTextFormField({
     Key? key,
     required this.label,
     this.controller,
@@ -14,14 +14,12 @@ class AppTextField extends StatelessWidget {
     this.inputFormatters,
     this.denySpaces = false,
     this.onChanged,
-    this.onSubmit,
     this.maxLines=1,
   }) : super(key: key);
 
   final String label;
   final TextEditingController? controller;
   final Function(String? s)? onChanged;
-  final Function(String? s)? onSubmit;
   final Widget? suffix;
   final bool obscure;
   final TextInputType? keyboard;
@@ -32,13 +30,12 @@ class AppTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       inputFormatters: inputFormatters ?? [],
       controller: controller,
       obscureText: obscure,
       keyboardType: keyboard,
       onChanged: onChanged,
-      onSubmitted: onSubmit,
       maxLines: maxLines,
       style: TextStyle(fontSize: screenWidth(context) * 0.05),
       decoration: InputDecoration(
@@ -55,6 +52,13 @@ class AppTextField extends StatelessWidget {
           suffixIconColor: Colors.white,
           suffixIconConstraints:
               BoxConstraints(maxHeight: screenHeight(context) * 0.04)),
+      validator: (value) {
+        value ?? '';
+        if (value!.isEmpty) {
+          return 'field required';
+        }
+        return null;
+      },
     );
   }
 }
