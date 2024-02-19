@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/shared/constants.dart';
-import 'package:notes_app/shared/widgets/app_button.dart';
 import 'package:notes_app/shared/widgets/custom_text_field.dart';
 
-class EditNoteScreen extends StatelessWidget {
-  EditNoteScreen({Key? key}) : super(key: key);
+class EditNoteScreen extends StatefulWidget {
+  const EditNoteScreen({Key? key, required this.note}) : super(key: key);
+  final NoteModel note;
 
+  @override
+  State<EditNoteScreen> createState() => _EditNoteScreenState();
+}
+
+class _EditNoteScreenState extends State<EditNoteScreen> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
 
@@ -22,7 +29,19 @@ class EditNoteScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                   color: Colors.grey.withOpacity(.2)),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  widget.note.title = titleController.text != ''
+                      ? titleController.text
+                      : widget.note.title;
+
+                  widget.note.subTitle = noteController.text != ''
+                      ? noteController.text
+                      : widget.note.subTitle;
+
+                  widget.note.save();
+                  NotesCubit.get(context).getAllNotes();
+                  Navigator.pop(context);
+                },
                 icon: const Icon(Icons.check),
               ),
             ),
@@ -30,7 +49,7 @@ class EditNoteScreen extends StatelessWidget {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         width: screenWidth(context),
         child: Column(
           children: [
@@ -46,13 +65,6 @@ class EditNoteScreen extends StatelessWidget {
               maxLines: 5,
             ),
             SizedBox(height: screenHeight(context) * .08),
-            AppButton(
-                text: 'Add',
-                function: () {
-                  Navigator.pop(context);
-                  print(titleController.text);
-                  print(noteController.text);
-                }),
           ],
         ),
       ),

@@ -15,7 +15,7 @@ class NotesItem extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => EditNoteScreen(),
+              builder: (context) => EditNoteScreen(note: note),
             ));
       },
       child: Container(
