@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
+import 'package:notes_app/screens/edit_note/widgets/edit_note_color_list.dart';
 import 'package:notes_app/shared/constants.dart';
 import 'package:notes_app/shared/widgets/custom_text_field.dart';
 
@@ -55,16 +56,17 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
           children: [
             SizedBox(height: screenHeight(context) * .05),
             AppTextFormField(
-              label: 'Title',
+              label: widget.note.title,
               controller: titleController,
             ),
             SizedBox(height: screenHeight(context) * .025),
             AppTextFormField(
-              label: 'Enter Note',
+              label: widget.note.subTitle,
               controller: noteController,
               maxLines: 5,
             ),
-            SizedBox(height: screenHeight(context) * .08),
+            SizedBox(height: screenHeight(context) * .03),
+            EditNoteColorList(note: widget.note),
           ],
         ),
       ),

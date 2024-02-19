@@ -15,3 +15,12 @@ double keyboardHeight(context) {
 }
 
 const kNotesBox = 'notes_box';
+
+
+const List<Color> appColors = [
+  Color(0xff00BCD4),
+  Color(0xff3887BE),
+  Color(0xff38419D),
+  Color(0xff176B87),
+  Color(0xffB4D4FF),
+];

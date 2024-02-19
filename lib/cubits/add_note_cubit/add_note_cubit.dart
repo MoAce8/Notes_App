@@ -15,7 +15,7 @@ class AddNoteCubit extends Cubit<AddNoteState> {
 
   static AddNoteCubit get(context) => BlocProvider.of<AddNoteCubit>(context);
 
-  Color color = Colors.cyan;
+  Color color = const Color(0xff00BCD4);
 
   addNote(NoteModel note) async {
     note.color = color.value;
