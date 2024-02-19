@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app/shared/constants.dart';
 
 class ColorItem extends StatelessWidget {
   const ColorItem({Key? key, required this.isActive, required this.color})
@@ -34,14 +35,6 @@ class ColorList extends StatefulWidget {
 }
 
 class _ColorListState extends State<ColorList> {
-  final List colors = const [
-    Colors.cyan,
-    Color(0xff3887BE),
-    Color(0xff38419D),
-    Color(0xff176B87),
-    Color(0xffB4D4FF),
-  ];
-
   int currentIndex = 0;
 
   @override
@@ -54,17 +47,17 @@ class _ColorListState extends State<ColorList> {
             onTap: () {
               setState(() {
                 currentIndex = index;
-                AddNoteCubit.get(context).color = colors[index];
+                AddNoteCubit.get(context).color = appColors[index];
               });
             },
             child: ColorItem(
               isActive: currentIndex == index,
-              color: colors[index],
+              color: appColors[index],
             )),
         separatorBuilder: (context, index) => const SizedBox(
           width: 25,
         ),
-        itemCount: colors.length,
+        itemCount: appColors.length,
       ),
     );
   }
