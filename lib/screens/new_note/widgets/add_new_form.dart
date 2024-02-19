@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/shared/constants.dart';
@@ -20,6 +21,7 @@ class _AddNewFormState extends State<AddNewForm> {
   TextEditingController noteController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
+  DateFormat formatter = DateFormat.yMd();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class _AddNewFormState extends State<AddNewForm> {
                       NoteModel note = NoteModel(
                         title: titleController.text,
                         subTitle: noteController.text,
-                        date: DateTime.now().toString(),
+                        date: formatter.format(DateTime.now()),
                         color: Colors.cyan.value,
                       );
                       AddNoteCubit.get(context).addNote(note);
