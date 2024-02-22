@@ -3,6 +3,7 @@ import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/screens/edit_note/widgets/edit_note_color_list.dart';
 import 'package:notes_app/shared/constants.dart';
+import 'package:notes_app/shared/widgets/custom_icon_button.dart';
 import 'package:notes_app/shared/widgets/custom_text_field.dart';
 
 class EditNoteScreen extends StatefulWidget {
@@ -23,29 +24,21 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
       appBar: AppBar(
         title: const Text('Notes'),
         actions: [
-          Container(
-            padding: EdgeInsets.all(screenWidth(context) * 0.01),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  color: Colors.grey.withOpacity(.2)),
-              child: IconButton(
-                onPressed: () {
-                  widget.note.title = titleController.text != ''
-                      ? titleController.text
-                      : widget.note.title;
+          CustomIconButton(
+            icon: Icons.check,
+            onPressed: () {
+              widget.note.title = titleController.text != ''
+                  ? titleController.text
+                  : widget.note.title;
 
-                  widget.note.subTitle = noteController.text != ''
-                      ? noteController.text
-                      : widget.note.subTitle;
+              widget.note.subTitle = noteController.text != ''
+                  ? noteController.text
+                  : widget.note.subTitle;
 
-                  widget.note.save();
-                  NotesCubit.get(context).getAllNotes();
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.check),
-              ),
-            ),
+              widget.note.save();
+              NotesCubit.get(context).getAllNotes();
+              Navigator.pop(context);
+            },
           )
         ],
       ),
